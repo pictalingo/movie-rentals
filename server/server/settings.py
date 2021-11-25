@@ -111,15 +111,15 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SECRET_KEY = 'django-insecure-@5t@e_bx_us+1yv181#z2(k3kf3_s#d7ds3i7rdgg1)8ngf)fy'
 
 CRON_EMAIL = os.getenv('CRON_EMAIL')
+SMTP_PASSWORD = os.getenv('SMTP_PASSWORD')
 
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'testblabla@gmail.com'
-EMAIL_HOST_PASSWORD = 'password'
+EMAIL_HOST_USER = CRON_EMAIL
+EMAIL_HOST_PASSWORD = SMTP_PASSWORD
 
 CRONJOBS = [
-    ('*/1 * * * *', 'movies.movies.cron.my_cron_job'),
-    ('*/2 * * * *', 'movies.cron.my_cron_job')
+    ('59 23 * * *', 'cron.my_cron_job', '>> ' + os.path.join(BASE_DIR, 'debug.log'))
 ]

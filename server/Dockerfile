@@ -4,6 +4,7 @@ RUN apt-get update
 RUN apt-get -y install cron
 
 WORKDIR /code
+RUN touch debug.log
 
 COPY requirements.txt /code/
 RUN pip install -r requirements.txt
@@ -11,8 +12,6 @@ RUN pip install -r requirements.txt
 COPY . /code/
 COPY entrypoint.sh /entrypoint.sh
 
-RUN touch /var/log/cron.log
-CMD /etc/init.d/cron start && tail - f /var/log/cron.log
 
 RUN chmod +x /entrypoint.sh
 

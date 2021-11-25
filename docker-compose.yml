@@ -31,6 +31,8 @@ services:
             - DB_NAME=$DB_NAME
             - DB_USER=$DB_USER
             - DB_PASSWORD=$DB_PASSWORD
+            - CRON_EMAIL=$CRON_EMAIL
+            - SMTP_PASSWORD=$SMTP_PASSWORD
         ports:
             - "8001:8001"
         volumes:

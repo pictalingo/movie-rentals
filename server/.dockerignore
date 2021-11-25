@@ -3,3 +3,4 @@ Dockerfile
 .venv
 .idea
 media
+debug.log
