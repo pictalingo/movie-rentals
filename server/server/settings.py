@@ -116,8 +116,8 @@ EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'vaad.pardesia@gmail.com'
-EMAIL_HOST_PASSWORD = 'fmdfjdphfzhigkim'
+EMAIL_HOST_USER = 'testblabla@gmail.com'
+EMAIL_HOST_PASSWORD = 'password'
 
 CRONJOBS = [
     ('*/1 * * * *', 'movies.movies.cron.my_cron_job'),
