@@ -14,6 +14,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+
+    'django_crontab',
     'rest_framework',
     'rest_framework_simplejwt',
     'movies'
@@ -109,3 +111,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SECRET_KEY = 'django-insecure-@5t@e_bx_us+1yv181#z2(k3kf3_s#d7ds3i7rdgg1)8ngf)fy'
 
 CRON_EMAIL = os.getenv('CRON_EMAIL')
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'vaad.pardesia@gmail.com'
+EMAIL_HOST_PASSWORD = 'fmdfjdphfzhigkim'
+
+CRONJOBS = [
+    ('* */24 * * *', 'movies.cron.my_cron_job')
+]

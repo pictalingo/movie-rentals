@@ -19,7 +19,6 @@ class UserRentalsView(viewsets.ModelViewSet, generics.CreateAPIView):
     def list(self, request, *args, **kwargs):
         rent_date_range = datetime.now() + timedelta(days=-7)
         current = request.user
-        # current.id = 1
         rented_movies = Movie.objects.filter(rented_movie__user_id=current.id,
                                              rented_movie__start_datetime__gt=rent_date_range)
         serializer = self.get_serializer(rented_movies, many=True)
@@ -40,7 +39,7 @@ class RentMovieView(viewsets.ModelViewSet, generics.CreateAPIView):
                             status=status.HTTP_400_BAD_REQUEST)
         else:
             try:
-                new_rent = Rental.objects.create(movie_id=movie_id, user_id=current.id, start_datetime=datetime.now())
+                Rental.objects.create(movie_id=movie_id, user_id=current.id, start_datetime=datetime.now())
                 return Response({'status': 'success'}, status=status.HTTP_201_CREATED)
             except:
                 return Response({'status': 'error', 'message': 'Error to rent'}, status=status.HTTP_400_BAD_REQUEST)
