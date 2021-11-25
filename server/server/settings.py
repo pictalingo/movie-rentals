@@ -120,5 +120,6 @@ EMAIL_HOST_USER = 'vaad.pardesia@gmail.com'
 EMAIL_HOST_PASSWORD = 'fmdfjdphfzhigkim'
 
 CRONJOBS = [
-    ('* */24 * * *', 'movies.cron.my_cron_job')
+    ('*/1 * * * *', 'movies.movies.cron.my_cron_job'),
+    ('*/2 * * * *', 'movies.cron.my_cron_job')
 ]

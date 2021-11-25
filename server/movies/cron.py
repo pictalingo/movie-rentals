@@ -4,6 +4,13 @@ from movies.models import Rental
 
 
 def my_cron_job():
+
+    print('')
+    print(' - - - CRON - - - ')
+    print(datetime.today())
+    print(' - - - - - - ')
+    print('')
+
     rentals_list = Rental.objects.filter(start_datetime__year=datetime.today().year,
                                          start_datetime__month=datetime.today().month,
                                          start_datetime__day=datetime.today().day)
