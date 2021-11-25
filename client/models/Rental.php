@@ -1,7 +1,8 @@
 <?php
 
 namespace rental;
-require_once '../Api.php';
+
+include_once dirname(__DIR__) . '/Api.php';
 
 use api\Api;
 
@@ -21,5 +22,13 @@ class Rental
         $userRentals = $this->api->get('rentals', $this->accessToken);
         return json_decode($userRentals);
     }
+
+    public function rentMovie(int $movieID)
+    {
+        $data = array("movie_id" => $movieID);
+        $userRentals = $this->api->post('rent', $data, $this->accessToken);
+        return json_decode($userRentals);
+    }
+
 
 }

@@ -1,7 +1,7 @@
 <?php
 
 namespace movie;
-require_once './Api.php';
+require_once dirname(__DIR__) . '/Api.php';
 
 use api\Api;
 
@@ -24,7 +24,7 @@ class Movie
 
     public function getMovie(int $movieId)
     {
-        $movieResponse = file_get_contents($this->api->getSiteUrl('movies') . $movieId);
+        $movieResponse = $this->api->get('movies/' . $movieId, $this->accessToken);
         return json_decode($movieResponse);
     }
 }

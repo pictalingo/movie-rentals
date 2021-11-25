@@ -23,7 +23,7 @@ class Api
         return $this->url . '/api/' . $endpoint . '/';
     }
 
-    public function post($endpoint, $data)
+    public function post($endpoint, $data, $token = false)
     {
 
         $curl = curl_init($this->getSiteUrl($endpoint));
@@ -31,9 +31,16 @@ class Api
         curl_setopt($curl, CURLOPT_POST, true);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($data));
+
         curl_setopt($curl, CURLOPT_HTTPHEADER, [
             'Content-Type: application/json'
         ]);
+
+        if ($token)
+            curl_setopt($curl, CURLOPT_HTTPHEADER, [
+                "Content-Type: application/json",
+                "Authorization: Bearer " . $token
+            ]);
 
         $response = curl_exec($curl);
         curl_close($curl);
@@ -49,7 +56,7 @@ class Api
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
         curl_setopt($curl, CURLOPT_HTTPHEADER, [
             "Content-Type: application/json",
-            "Authorization: Bearer ".$authorization
+            "Authorization: Bearer " . $authorization
         ]);
 
         $response = curl_exec($curl);
