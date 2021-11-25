@@ -1,0 +1,67 @@
+version: '3.8'
+
+services:
+
+    db:
+        platform: linux/x86_64
+        image: mysql:8.0
+        container_name: db
+        restart: unless-stopped
+        env_file: .env
+        environment:
+            - MYSQL_ROOT_PASSWORD=$MYSQL_ROOT_PASSWORD
+            - MYSQL_DATABASE=$DB_NAME
+            - MYSQL_USER=$DB_USER
+            - MYSQL_PASSWORD=$DB_PASSWORD
+        ports:
+            - "3306:3306"
+        volumes:
+            - dbdata:/var/lib/mysql
+        command: '--default-authentication-plugin=mysql_native_password'
+        networks:
+            - dupli-network
+
+    api:
+        container_name: api
+        build: server/.
+        image: server-api:latest
+        restart: unless-stopped
+        env_file: .env
+        environment:
+            - DB_NAME=$DB_NAME
+            - DB_USER=$DB_USER
+            - DB_PASSWORD=$DB_PASSWORD
+        ports:
+            - "8001:8001"
+        volumes:
+            - media:/code/media
+        networks:
+            - dupli-network
+        depends_on:
+            - db
+        tty: true
+
+    client:
+        container_name: client
+        build: client/.
+        image: php-apache:latest
+        restart: unless-stopped
+        ports:
+            - "80:80"
+        volumes:
+            - ./client:/var/www/html/
+        networks:
+            - dupli-network
+        tty: true
+        depends_on:
+            - db
+            - api
+
+
+volumes:
+    dbdata:
+    media:
+
+networks:
+    dupli-network:
+        driver: bridge

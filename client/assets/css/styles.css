@@ -1,0 +1,16 @@
+body {
+    color: #666;
+    font-family: 'Open Sans Condensed', sans-serif;
+}
+
+h5 {
+    font-weight: 700;
+}
+
+.card {
+    margin: 5px 10px;
+}
+
+.card-image img {
+    max-height: 300px
+}
